@@ -1,123 +1,134 @@
 <?php
-$page = $_SERVER['PHP_SELF'];
-$sec = "5";
-?>
+
+$error = "";
+
+$success = "";
+
+  if(isset($_POST['submit'])){
+
+    $uname = $_POST['uname'];
+
+    $pass = $_POST['pass'];
+
+    if($uname == "admin"){
+
+      if($pass == "hyperion"){
+
+        $error = "";
+
+        $success = "Welcome ".$uname." !!!";
+	//redirect to the welcome.php page
+
+	header("Location: http://83.212.106.184/panel/");
+	die();
+      }
+
+      else {
+
+        $error = "Invalid Password !!!";
+
+        $success = "";
+
+      }
+
+    }
+
+    else {
+
+      $error = "Invalid Username !!!";
+
+      $success = "";
+
+    }
+
+  }
+
+
+ ?>
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en" >
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="<?php echo $sec?>;URL='<?php echo $page?>'">
 
-  <title>Control interface</title>
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <meta charset="UTF-8">
+
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
 
   <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'>
   
-  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css'>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
       <link rel="stylesheet" href="css/style.css">
 
-<script>
- 
-function imAnAjaxFunction(){
- 
-  	var request = $.ajax({
-   		url: 'ajax.php',
-   		type: 'get',
-   		dataType: 'html'
- 	});
- 
-	request.done( function ( data ) {
- 		$('#ajaxButton').html( data );
- 	});
- 
-	request.fail( function ( jqXHR, textStatus) {
- 		console.log( 'Sorry: ' + textStatus );
- 	});
- 
+  <style>
+body {
+  background-color: #2c3338;
+  color: #606468;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  height: 100%;
+  line-height: 1.5;
+  margin: 0;
+  min-height: 100vh;
 }
- 
-</script>
+</style>
 
+  
 </head>
 
-<body>
 
-<?php
+  <body class="align">
+<br>
 
-	$file = "start.txt";
-	$handle = fopen($file , "r");
-	$contents = fread($handle, filesize($file ));
-	fclose($handle);
-	fclose($file);
-	$r = (1 == $contents ) ? 'Working' : 'Not Working';
+  <div class="grid">
 
-	$file = "person.txt";
-	$handle = fopen($file , "r");
-	$contents = fread($handle, filesize($file ));
-	fclose($handle);
-	fclose($file);
+    <form method="post" class="form login">
 
-	if (0 == $contents)
-  		$d = 'We have not found someone';
-	if (1 == $contents)
-  		$d = 'Someone needs Help!';
-	if (2 == $contents)
-  		$d = 'We have found someone';
-
-
-?>
-
-  <div id="particles-js">
-  <div class="container">
-    <div class="row top">
-      <div class="twelve column">
-
-        <h1>Control Panel</h1>
-        <h2> Cloud Brained Informations</h2>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="one-half column">
-        <div class="pens pulled">
-          <h1>Informations</h1>
-    <a>      
-The robot now is: 
-
-<?=$r?><br />
-<?=$d?><br />
- </a>
-        </div>
+      <div class="form__field">
+        <label for="login__username"><span class="hidden">Username</span><i class="material-icons">supervisor_account</i>
+</label>
+        <input id="login__username" type="text" name="uname" class="form__input" placeholder="Username" required>
       </div>
 
-      <div class="one-half column">
-        <div class="posts pulled">
-          <h1>Start Button</h1>
-     <a class="button" name="insert"  id = 'ajaxButton' href="" onClick = 'imAnAjaxFunction()' >         <i class="fa  fa-crosshairs"></i>
-</a>
- 
-        </div>
+      <div class="form__field">
+        <label for="login__password"><span class="hidden">Password</span><i class="material-icons">fingerprint</i></label>
+        <input id="login__password" type="password" name="pass" class="form__input" placeholder="Password" required>
       </div>
-    </div>
+
+      <div class="form__field">
+        <input type="submit" name="submit" value="Log In">
+      </div>
+
+    </form>
+
+      <p class="red"><?php echo $error; ?></p>
+
+      <p class="green"><?php echo $success; ?></p>
   </div>
 
-<div class="container ">
-  <div class="footer">
-  <p>By Georgios Angelopoulos </p> </div></div>
-  </div>
+
+
+<br>
+  <p>By Georgios Angelopoulos </p> </div></div></div>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js'></script>
 
   
 
     <script  src="js/index.js"></script>
-
-
-
+  
 
 </body>
 
